@@ -1,0 +1,24 @@
+<!-- /Premium-Coffee/luxurycoffee/shop/templates/shop/home.html -->
+{% extends 'shop/base.html' %}
+
+{% block title %}Home - Luxury Coffee Online{% endblock %}
+
+{% block content %}
+<h2>Welcome to Luxury Coffee Online</h2>
+<p>Discover our premium range of coffee products.</p>
+<div class="products">
+    {% for product in products %}
+        <div class="product">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <p>${{ product.price }}</p>
+            <a href="{% url 'product_detail' product.id %}">View Details</a>
+            <form action="{% url 'add_to_cart' product.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
